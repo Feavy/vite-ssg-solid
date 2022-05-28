@@ -11,10 +11,10 @@
 	],
 	"main": "index.js",
 	"scripts": {
-		"dev": "nodemon ./server.js",
-		"build": "concurrently --kill-others-on-fail -n w: \"pnpm:build:*\"",
-		"build:client": "vite build --outDir dist/client",
-		"build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server"
+		"dev": "nodemon ./devserver.js",
+		"build": "vite build --outDir dist && node ./ssg",
+		"build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
+		"prod": "set NODE_ENV=production && node ./server.js"
 	},
 	"dependencies": {
 		"compression": "^1.7.4",

@@ -3,9 +3,10 @@ import { MetaProvider } from "solid-meta";
 import { App } from "./App";
 
 const Browser: Component = () => {
+
   return (
     <MetaProvider>
-      <App />
+      <App path={window.location.pathname}/>
     </MetaProvider>
   );
 };

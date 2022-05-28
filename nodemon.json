@@ -5,7 +5,7 @@
 	],
 	"verbose": true,
 	"watch": [
-		"./server.js",
+		"./devserver.js",
 		"./pnpm-lock.yml",
 		"./nodemon.json"
 	],

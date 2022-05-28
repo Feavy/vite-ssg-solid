@@ -47,7 +47,7 @@ async function createServer(
 
 			const render = (await vite.ssrLoadModule("/src/entry-server.tsx")).render;
 
-			const html = render(url);
+			const html = await render(url);
 
 			const appHtml = template
 				.replace(`<!--app-head-->`, html.head + html.hydration)

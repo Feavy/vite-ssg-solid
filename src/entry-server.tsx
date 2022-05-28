@@ -1,10 +1,10 @@
-import { renderToString, generateHydrationScript } from "solid-js/web";
+import { generateHydrationScript, renderToStringAsync } from "solid-js/web";
 import { renderTags } from "solid-meta";
 import Server, { TagDescription } from "./Server";
 
-export function render(url: string) {
+export async function render(path: string) {
   let tags: TagDescription[] = [];
-  const body = renderToString(() => <Server tags={tags} />);
+  const body = await renderToStringAsync(() => <Server tags={tags} path={path} />);
   const hydration = generateHydrationScript();
   const head = renderTags(tags);
   return {

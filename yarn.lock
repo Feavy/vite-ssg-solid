@@ -1820,12 +1820,12 @@ solid-app-router@^0.1.5:
   resolved "https://registry.yarnpkg.com/solid-app-router/-/solid-app-router-0.1.14.tgz#2ffb1bfbb7db7d9d1cd81be5aec1eb786b961573"
   integrity sha512-fnX+jCB5sDMbjq3od9qGtQNdlvHP2c6DG5STvMHVXyNuSEN+MdO7WJtZ58OpVpq6zWS4FYeYAh7NMEa7C2CcOA==
 
-solid-js@^1.1.3, solid-js@^1.3.3:
+solid-js@^1.3.3, solid-js@^1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-1.4.3.tgz#9805f894a832bced72f6fe1eb011973d15ce72f4"
   integrity sha512-3uh2cbT4ICronIasLAxycF6SVgvqcfwFCDCzlEA9CEahn1qQg8Rw8aRGiI4O51PrHcN5aPRO9knYYRCs0PgzcQ==
 
-solid-meta@^0.27.2:
+solid-meta@^0.27.5:
   version "0.27.5"
   resolved "https://registry.yarnpkg.com/solid-meta/-/solid-meta-0.27.5.tgz#b130a9a779b03d66baa030443327c4ec00982be5"
   integrity sha512-9OA50aNBhCwuFo1Uby9NT3gB6I6iBRN0mSXkXROJyWDtmyhdw9iyMT9JsnGF/A/7IQq2BSLV75oPQjNKQAMeQw==
@@ -2029,7 +2029,7 @@ vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
-vite-plugin-solid@^2.0.3:
+vite-plugin-solid@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/vite-plugin-solid/-/vite-plugin-solid-2.2.6.tgz#6e8979bbb587457f8469bed1107f8bf878ed170e"
   integrity sha512-J1RnmqkZZJSNYDW7vZj0giKKHLWGr9tS/gxR70WDSTYfhyXrgukbZdIfSEFbtrsg8ZiQ2t2zXcvkWoeefenqKw==

@@ -10,12 +10,13 @@ export interface TagDescription {
 export interface ServerProps {
   tags: TagDescription[];
   path: string;
+  data: any;
 }
 
 const Server: Component<ServerProps> = (props) => {
   return (
     <MetaProvider tags={props.tags}>
-      <App path={props.path}/>
+      <App path={props.path} data={props.data}/>
     </MetaProvider>
   );
 };

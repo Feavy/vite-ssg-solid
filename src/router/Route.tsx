@@ -1,4 +1,5 @@
 import { Component, JSX, Show } from "solid-js";
+import { isServer } from "solid-js/web";
 import { useRouter } from "./Router";
 
 export interface RouteProps {
@@ -13,7 +14,7 @@ const Route: Component<RouteProps> = (props) => {
     const path1 = props.path;
 
     return (
-        <Show when={path1 === path()}>
+        <Show when={isServer && path1 === path()}>
             {props.component}
         </Show>
     )

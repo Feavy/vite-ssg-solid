@@ -14,23 +14,24 @@ const indexProd = readFileSync(resolve("dist/index.html"), "utf-8");
 	try {
 		const template = indexProd;
 
-		const pages = new Map();
-		pages.set("/", "index.html");
-		pages.set("/article", "article.html");
-		pages.set("/credits", "credits.html");
+		const pages = [];
+		pages.push(["/", "index", {title: "Accueil"}]);
+		pages.push(["/article", "article", {title: "Article"}]);
+		pages.push(["/credits", "credits", {title: "Crédits"}]);
 
 		const render = require("./dist/server/entry-server.js").render
 		await render("/"); // because for some reason lazy components are not loaded the first time
 
-		for(const [path, file] of pages) {
-			const html = await render(path);
+		for(const [path, file, data] of pages) {
+			const html = await render(path, data);
 
 			const appHtml = template
 				.replace(`<!--app-head-->`, html.head + html.hydration)
 				.replace(`<!--app-html-->`, html.body);
 
 			// write app html to dist
-			require("fs").writeFileSync(resolve(`dist/${file}`), appHtml);
+			require("fs").writeFileSync(resolve(`dist/${file}.html`), appHtml);
+			require("fs").writeFileSync(resolve(`dist/${file}.content.html`), html.body);
 		}
 
 		exit(0);

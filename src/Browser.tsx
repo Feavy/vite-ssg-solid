@@ -6,7 +6,7 @@ const Browser: Component = () => {
 
   return (
     <MetaProvider>
-      <App path={window.location.pathname}/>
+      <App path={window.location.pathname} data={{title: "undefined"}}/>
     </MetaProvider>
   );
 };

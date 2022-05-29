@@ -5,12 +5,11 @@ import LinkTo from "./router/Link";
 import Route from "./router/Route";
 import Router from "./router/Router";
 
-const Index = lazy(() => import("./components/Index"));
-const Article = lazy(() => import("./components/Article"));
-const Credits = lazy(() => import("./components/Credits"));
+const Page = lazy(() => import("./components/Page"));
 
 interface AppProps {
 	path: string;
+	data: any;
 }
 
 export const App: Component<AppProps> = (props) => {
@@ -22,15 +21,15 @@ export const App: Component<AppProps> = (props) => {
 			<Link rel="shortcut icon" type="image/svg+xml" href={favicon} />
 			<Link rel="stylesheet" href="/styles.css" />
 			<nav>
-				<LinkTo path="/" preload={Index}>Index</LinkTo>
+				<LinkTo path="/" preload={Page}>Index</LinkTo>
 				<br/>
-				<LinkTo path="/article" preload={Article}>Article</LinkTo>
+				<LinkTo path="/article" preload={Page}>Article</LinkTo>
 				<br/>
-				<LinkTo path="/credits" preload={Credits}>Credits</LinkTo>
+				<LinkTo path="/credits" preload={Page}>Credits</LinkTo>
 			</nav>
-			<Route path="/" component={<Index />} />
-			<Route path="/article" component={<Article />} />
-			<Route path="/credits" component={<Credits />} />
+			<Route path="/" component={<Page title={props.data.title} />} />
+			<Route path="/article" component={<Page title={props.data.title} />} />
+			<Route path="/credits" component={<Page title={props.data.title} />} />
 		</Router>
 	);
 };

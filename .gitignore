@@ -8,3 +8,5 @@ dist/
 .pnpm-*.log
 .DS_Store
 .dccache
+
+.idea

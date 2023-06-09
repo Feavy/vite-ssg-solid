@@ -18,6 +18,7 @@ const indexProd = readFileSync(resolve("dist/index.html"), "utf-8");
 		pages.push(["/", "index", {title: "Accueil"}]);
 		pages.push(["/article", "article", {title: "Article"}]);
 		pages.push(["/credits", "credits", {title: "Crédits"}]);
+		pages.push(["/page2", "page2", {title: "Page2"}]);
 
 		const render = require("./dist/server/entry-server.js").render
 		await render("/"); // because for some reason lazy components are not loaded the first time
@@ -30,8 +31,12 @@ const indexProd = readFileSync(resolve("dist/index.html"), "utf-8");
 				.replace(`<!--app-html-->`, html.body);
 
 			// write app html to dist
-			require("fs").writeFileSync(resolve(`dist/${file}.html`), appHtml);
-			require("fs").writeFileSync(resolve(`dist/${file}.content.html`), html.body);
+			if(file === "index") {
+				require("fs").writeFileSync(resolve(`dist/${file}.html`), appHtml);
+			} else {
+				require("fs").mkdirSync(resolve(`dist/${file}`));
+				require("fs").writeFileSync(resolve(`dist/${file}/index.html`), appHtml);
+			}
 		}
 
 		exit(0);

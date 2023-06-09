@@ -11,41 +11,28 @@ export interface LinkProps {
     };
 }
 
-const LinkTo: Component<ParentProps<LinkProps>> = (props) => {
-    //@ts-ignore
-    const [_, { setPath }] = useRouter();
+const Link = props => {
+	//@ts-ignore
+	const [_, { setPath }] = useRouter();
+	const navigate = e => {
+		if (e) e.preventDefault();
+		window.history.pushState("", "", `${props.path}`);
+		setPath(props.path);
+	};
 
-    const navigate = (e: Event) => {
-        e.preventDefault();
-        window.history.pushState("", "", `${props.path}`);
-        console.log("navigate to", props.path);
-        if(isServer) {
-            setPath(props.path);
-        }else{
-            (async () => {
-                const body = await (fetch(props.path+".content.html").then(data => data.text()));
-                document.body.innerHTML = body;
-                const scriptElement = document.querySelector('script[type="module"]');
-                console.log("currentScript : ",document.currentScript);
-                console.log("scriptElement : ",scriptElement);
-                const clone = scriptElement?.cloneNode(true);
-                scriptElement?.remove();
-                document.body.appendChild(clone!);
-                console.log("updated script");
-            })();
-        }
-    };
+	const preload = (e: Event) => {
+		if (!props.preload) {
+			return;
+		}
+		props.preload.preload();
+	};
 
-    const preload = (e: Event) => {
-        if (!props.preload) {
-            return;
-        }
-        props.preload.preload();
-    };
-
-    return (
-        <a onMouseEnter={preload} onClick={navigate} href="#">{props.children}</a>
-    );
+	return (
+		<a onMouseEnter={preload} class="link" href={`${props.path}`} onClick={navigate}>
+			{props.children}
+		</a>
+	);
 };
 
-export default LinkTo;
+
+export default Link;

@@ -13,7 +13,7 @@
 	],
 	"main": "index.js",
 	"scripts": {
-		"dev": "nodemon ./devserver.js",
+		"dev": "yarn build && nodemon ./devserver.js",
 		"build": "vite build --outDir dist && yarn build:server && node ./ssg && rimraf dist/server",
 		"build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
 		"prod": "set NODE_ENV=production && node ./server.js"

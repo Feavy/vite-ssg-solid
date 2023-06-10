@@ -27,17 +27,20 @@ import {render} from "./dist/server/entry-server.js";
 		pages.push(["/page2", "page2", {title: "Page2"}]);
 
 		for(const [path, file, data] of pages) {
+			if(file !== "index") {
+				mkdirSync(resolve(`dist/${file}`));
+			}
+
 			const html = await render(path, data);
 
 			const appHtml = template
 				.replace(`<!--app-head-->`, html.head + html.hydration)
-				.replace(`<!--app-html-->`, html.body);
+				.replace(`<!--app-html-->`, suppressHydrationOverhead(html.body));
 
 			// write app html to dist
 			if(file === "index") {
 				writeFileSync(resolve(`dist/${file}.html`), appHtml);
 			} else {
-				mkdirSync(resolve(`dist/${file}`));
 				writeFileSync(resolve(`dist/${file}/index.html`), appHtml);
 			}
 		}
@@ -48,3 +51,11 @@ import {render} from "./dist/server/entry-server.js";
 		console.log(e.stack);
 	}
 })();
+
+function suppressHydrationOverhead(app) {
+	const lines = app.split("\n");
+	let lastLine = lines.pop();
+	lastLine = lastLine.split("<script>")[0];
+	lines.push(lastLine);
+	return lines.join("\n");
+}

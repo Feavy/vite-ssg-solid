@@ -1,12 +1,12 @@
 import {Component, lazy, Suspense} from "solid-js";
-import { Title, Link } from "solid-meta";
+import {Link, Title} from "solid-meta";
 import styles from "../assets/styles.css?url";
 import LinkTo from "./router/Link";
 import Route from "./router/Route";
 import Router from "./router/Router";
 
 const Page = lazy(() => import("./components/Page"));
-const Page2 = lazy(() => import("./components/Page2"));
+const Pokemons = lazy(() => import("./components/Pokemons"));
 
 interface AppProps {
 	path: string;
@@ -29,7 +29,7 @@ export const App: Component<AppProps> = (props) => {
 				<br/>
 				<LinkTo path="/credits" preload={Page}>Credits</LinkTo>
 				<br/>
-				<LinkTo path="/page2" preload={Page2}>Page2</LinkTo>
+				<LinkTo path="/page2" preload={Pokemons}>Page2</LinkTo>
 			</nav>
 			<Suspense
 				fallback={
@@ -38,10 +38,10 @@ export const App: Component<AppProps> = (props) => {
                   </span>
 				}
 			>
-				<Route path="/" component={<Page title={"Accueil"} />} />
-				<Route path="/article" component={<Page title={"Article"} />} />
-				<Route path="/credits" component={<Page title={"Credits"} />} />
-				<Route path="/page2" component={<Page2 title={"Page2"} />} />
+				<Route path="/" component={<Page title={"Accueil"}/>}/>
+				<Route path="/article" component={<Page title={"Article"}/>}/>
+				<Route path="/credits" component={<Page title={"Credits"}/>}/>
+				<Route path="/page2" component={<Pokemons title={"Page2"}/>}/>
 			</Suspense>
 		</Router>
 	);

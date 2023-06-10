@@ -47,6 +47,11 @@ async function createServer(
 	app.use("*", async (req, res) => {
 		try {
 			const url = req.originalUrl;
+			if(url.endsWith("page_data.json")) {
+				const content = readFileSync("./dist"+url, "utf-8")
+				res.status(200).set({ "Content-Type": "application/json" }).end(content);
+				return;
+			}
 
 			const template = await viteServer.transformIndexHtml(
 								url,

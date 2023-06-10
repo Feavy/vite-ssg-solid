@@ -1,6 +1,6 @@
 import type { Component } from "solid-js";
 import { MetaProvider } from "solid-meta";
-import { App } from "./App";
+import { App } from "./app/App";
 
 export interface TagDescription {
   tag: string;

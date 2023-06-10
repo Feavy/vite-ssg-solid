@@ -1,7 +1,12 @@
 // file deepcode ignore Utf8Literal: Web uses utf-8
-const { readFileSync } = require("fs");
-const path = require("path");
-const express = require("express");
+import { readFileSync } from "fs";
+import * as path from "path";
+import express from "express";
+import * as vite from "vite";
+
+import * as url from 'url';
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const isTest = process.env.NODE_ENV === "test" || !!process.env.VITE_TEST_BUILD;
 const PORT = process.env.PORT || "3000";
@@ -14,18 +19,19 @@ async function createServer(
 
 	const app = express().disable("x-powered-by");
 
-	let vite;
+	let viteServer;
 
 	if (!isProd) {
-		vite = await require("vite").createServer({
-			root,
-			logLevel: isTest ? "error" : "info",
-			server: {
-				middlewareMode: true,
-			},
-		});
-		// use vite's connect instance as middleware
-		app.use(vite.middlewares);
+			viteServer = await vite.createServer({
+				root,
+				logLevel: isTest ? "error" : "info",
+				server: {
+					middlewareMode: true,
+				},
+				appType: "custom"
+			});
+			app.use(viteServer.middlewares);
+			// use vite's connect instance as middleware
 	} else {
 		app.use(require("compression"));
 		app.use(
@@ -35,17 +41,17 @@ async function createServer(
 		);
 	}
 
+	const render = (await viteServer.ssrLoadModule("/src/entry-server.tsx")).render;
+
 	// deepcode ignore NoRateLimitingForExpensiveWebOperation: only used in dev
 	app.use("*", async (req, res) => {
 		try {
 			const url = req.originalUrl;
 
-			const template = await vite.transformIndexHtml(
+			const template = await viteServer.transformIndexHtml(
 								url,
 								readFileSync(resolve("index.html"), "utf-8")
 				  			);
-
-			const render = (await vite.ssrLoadModule("/src/entry-server.tsx")).render;
 
 			const html = await render(url);
 
@@ -56,15 +62,15 @@ async function createServer(
 			// deepcode ignore XSS: url only used to render page, deepcode ignore ServerLeak: Doesn't happen here
 			res.status(200).set({ "Content-Type": "text/html" }).end(appHtml);
 		} catch (e) {
-			vite && vite.ssrFixStacktrace(e);
+			viteServer && viteServer.ssrFixStacktrace(e);
 			console.log(e.stack);
-			
+
 			// deepcode ignore XSS: url only used in dev, deepcode ignore ServerLeak: not done in prod
 			res.status(500).end(e.stack);
 		}
 	});
 
-	return { app, vite };
+	return { app, viteServer };
 }
 
 if (!isTest) {
@@ -81,4 +87,4 @@ if (!isTest) {
 }
 
 // for test use
-exports.createServer = createServer;
+export { createServer };

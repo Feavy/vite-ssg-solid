@@ -4,6 +4,7 @@
 	"description": "",
 	"author": "Feavy",
 	"license": "ISC",
+	"type": "module",
 	"keywords": [
 		"solid",
 		"solid-js",
@@ -19,25 +20,26 @@
 	},
 	"dependencies": {
 		"compression": "^1.7.4",
-		"express": "^4.17.1",
-		"serve-static": "^1.14.1",
-		"solid-js": "^1.4.3",
-		"solid-meta": "^0.27.5",
-		"tslib": "^2.3.1"
+		"express": "^4.18.2",
+		"rimraf": "^5.0.1",
+		"serve-static": "^1.15.0",
+		"solid-js": "^1.7.6",
+		"solid-meta": "^0.28.1",
+		"tslib": "^2.5.3"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.15.5",
+		"@babel/core": "^7.22.5",
 		"@types/compression": "^1.7.2",
-		"@types/express": "^4.17.13",
-		"@types/serve-static": "^1.13.10",
-		"babel-preset-solid": "^1.1.3",
-		"concurrently": "^6.3.0",
+		"@types/express": "^4.17.17",
+		"@types/serve-static": "^1.15.1",
+		"babel-preset-solid": "^1.7.4",
+		"concurrently": "^8.2.0",
 		"cross-env": "^7.0.3",
-		"jiti": "^1.12.0",
-		"nodemon": "^2.0.13",
-		"rollup-plugin-typescript-paths": "^1.3.0",
-		"typescript": "^4.4.4",
-		"vite": "^2.9.9",
-		"vite-plugin-solid": "^2.2.6"
+		"jiti": "^1.18.2",
+		"nodemon": "^2.0.22",
+		"rollup-plugin-typescript-paths": "^1.4.0",
+		"typescript": "^5.1.3",
+		"vite": "^4.3.9",
+		"vite-plugin-solid": "^2.7.0"
 	}
 }

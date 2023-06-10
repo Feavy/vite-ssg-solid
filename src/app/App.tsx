@@ -1,4 +1,4 @@
-import { Component, createSignal, lazy, Show } from "solid-js";
+import {Component, lazy, Suspense} from "solid-js";
 import { Title, Link } from "solid-meta";
 import styles from "../assets/styles.css?url";
 import LinkTo from "./router/Link";
@@ -31,10 +31,18 @@ export const App: Component<AppProps> = (props) => {
 				<br/>
 				<LinkTo path="/page2" preload={Page2}>Page2</LinkTo>
 			</nav>
-			<Route path="/" component={<Page title={"Accueil"} />} />
-			<Route path="/article" component={<Page title={"Article"} />} />
-			<Route path="/credits" component={<Page title={"Credits"} />} />
-			<Route path="/page2" component={<Page2 title={"Page2"} />} />
+			<Suspense
+				fallback={
+					<span class="loader" style="opacity: 0">
+                    Loading...
+                  </span>
+				}
+			>
+				<Route path="/" component={<Page title={"Accueil"} />} />
+				<Route path="/article" component={<Page title={"Article"} />} />
+				<Route path="/credits" component={<Page title={"Credits"} />} />
+				<Route path="/page2" component={<Page2 title={"Page2"} />} />
+			</Suspense>
 		</Router>
 	);
 };

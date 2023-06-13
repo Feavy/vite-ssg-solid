@@ -35,7 +35,7 @@ import {render} from "./dist/server/entry-server.js";
 
 			const appHtml = template
 				.replace(`<!--app-head-->`, html.head + html.hydration)
-				.replace(`<!--app-html-->`, suppressHydrationOverhead(html.body));
+				.replace(`<!--app-html-->`, html.body);
 
 			// write app html to dist
 			if(file === "index") {
@@ -51,11 +51,3 @@ import {render} from "./dist/server/entry-server.js";
 		console.log(e.stack);
 	}
 })();
-
-function suppressHydrationOverhead(app) {
-	const lines = app.split("\n");
-	let lastLine = lines.pop();
-	lastLine = lastLine.split("<script>")[0];
-	lines.push(lastLine);
-	return lines.join("\n");
-}
